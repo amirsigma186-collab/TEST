@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Sukuna | King of Dragons</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0; font-family: Arial, sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light { background: #fff; color: #000; }
+    body.dark { background: #000; color: #fff; }
+    header, footer {
+      padding: 10px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid #999;
+    }
+    nav button {
+      margin: 0 5px; padding: 6px 12px;
+      border: none; cursor: pointer;
+      border-radius: 6px;
+    }
+    nav button.active { background: red; color: white; }
+    section { padding: 20px; max-width: 700px; margin: auto; }
+    input { display: block; margin: 8px 0; padding: 8px; width: 100%; }
+    .msg { margin-top: 10px; }
+    .ok { color: lime; }
+    .err { color: red; }
+  </style>
+</head>
+<body class="dark">
+  <header>
+    <div>
+      <span style="color:red;font-size:20px">🐉 Sukuna</span>
+      <div style="font-size:12px">King of Dragons</div>
+    </div>
+    <nav>
+      <button onclick="showPage('home')" id="btnHome">خانه</button>
+      <button onclick="showPage('contact')" id="btnContact">ارتباط</button>
+      <button onclick="showPage('auth')" id="btnAuth">ورود/ثبت‌نام</button>
+      <button onclick="showPage('panel')" id="btnPanel">پنل</button>
+      <button onclick="toggleTheme()">🌙/☀️</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- خانه -->
+    <section id="home" class="page">
+      <h1>Sukuna</h1>
+      <h2 style="color:red">King of Dragons</h2>
+      <pre>
+گامباره گامباره 
+بیشتر بیشتر تلاش کن
+هرکاری به یک پشت کار نیاز داره
+پس بیاید با هم یه همکاری خوبی داشته باشیم
+      </pre>
+    </section>
+
+    <!-- ارتباط -->
+    <section id="contact" class="page" style="display:none">
+      <h2>ارتباط با من</h2>
+      <p>📞 09045849673</p>
+    </section>
+
+    <!-- ورود/ثبت‌نام -->
+    <section id="auth" class="page" style="display:none">
+      <h2 id="authTitle">ورود</h2>
+      <input type="text" id="username" placeholder="نام کاربری (فقط ثبت‌نام)" style="display:none">
+      <input type="email" id="email" placeholder="ایمیل">
+      <input type="password" id="password" placeholder="رمز عبور">
+      <button onclick="authAction()">تأیید</button>
+      <button onclick="switchMode()">تغییر به ثبت‌نام</button>
+      <div id="authMsg" class="msg"></div>
+    </section>
+
+    <!-- پنل -->
+    <section id="panel" class="page" style="display:none">
+      <h2>پنل کاربری</h2>
+      <div id="panelContent"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> Sukuna</span>
+  </footer>
+
+  <script>
+    const pages = ['home','contact','auth','panel'];
+    let mode = 'login';
+    let currentUser = JSON.parse(localStorage.getItem('sukunaUser')) || null;
+
+    function showPage(p){
+      pages.forEach(pg=>{
+        document.getElementById(pg).style.display = (pg===p)?'block':'none';
+        document.getElementById('btn'+pg.charAt(0).toUpperCase()+pg.slice(1))?.classList.remove('active');
+      });
+      document.getElementById('btn'+p.charAt(0).toUpperCase()+p.slice(1))?.classList.add('active');
+      if(p==='panel') loadPanel();
+    }
+
+    function toggleTheme(){
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme',document.body.classList.contains('dark')?'dark':'light');
+    }
+
+    function switchMode(){
+      mode = (mode==='login'?'register':'login');
+      document.getElementById('authTitle').innerText = (mode==='login'?'ورود':'ثبت‌نام');
+      document.getElementById('username').style.display = (mode==='login'?'none':'block');
+      document.querySelector('#auth button').innerText = (mode==='login'?'ورود':'ثبت‌نام');
+      document.querySelector('#auth button+button').innerText = (mode==='login'?'تغییر به ثبت‌نام':'تغییر به ورود');
+      document.getElementById('authMsg').innerText='';
+    }
+
+    function authAction(){
+      const email=document.getElementById('email').value.trim();
+      const pass=document.getElementById('password').value.trim();
+      const user=document.getElementById('username').value.trim();
+      const msg=document.getElementById('authMsg');
+      msg.innerText='';
+      let users=JSON.parse(localStorage.getItem('sukunaUsers'))||[];
+      if(mode==='register'){
+        if(!user||!email||!pass) return msg.innerText='پر کنید';
+        if(users.find(u=>u.email===email)) return msg.innerText='ایمیل تکراری';
+        const u={id:Date.now(),username:user,email,password:pass};
+        users.push(u); localStorage.setItem('sukunaUsers',JSON.stringify(users));
+        currentUser=u; localStorage.setItem('sukunaUser',JSON.stringify(u));
+        msg.innerText='ثبت‌نام شد'; showPage('panel');
+      }else{
+        const f=users.find(u=>u.email===email&&u.password===pass);
+        if(!f){ msg.innerText='اطلاعات اشتباه'; return;}
+        currentUser=f; localStorage.setItem('sukunaUser',JSON.stringify(f));
+        msg.innerText='ورود موفق'; showPage('panel');
+      }
+    }
+
+    function loadPanel(){
+      const div=document.getElementById('panelContent');
+      if(!currentUser){div.innerHTML='<p>ابتدا وارد شوید</p>';return;}
+      div.innerHTML=`<p>خوش آمدی ${currentUser.username}</p>
+        <p>درباره: King of Dragons</p>
+        <button onclick="logout()">خروج</button>`;
+    }
+    function logout(){ currentUser=null; localStorage.removeItem('sukunaUser'); showPage('home'); }
+
+    // init
+    (function(){
+      const th=localStorage.getItem('theme')||'dark';
+      document.body.classList.remove('dark','light');
+      document.body.classList.add(th);
+      document.getElementById('year').innerText=new Date().getFullYear();
+      showPage('home');
+      if(currentUser) showPage('panel');
+    })();
+  </script>
+</body>
+</html>
