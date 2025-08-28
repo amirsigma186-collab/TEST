@@ -3,203 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gg.. gg - حرفه‌ای</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+<title>وب‌سایت سوکونا نهایی</title>
 <style>
-body {margin:0;font-family:'Amiri', serif; background:#fff; color:#000; transition:0.5s;}
-header {background:#ff0000;color:#fff;padding:20px;text-align:center;font-size:2em;font-weight:bold;position:sticky;top:0;z-index:1000;}
-nav {display:flex;justify-content:center;gap:20px;flex-wrap:wrap;background:#222;padding:10px;position:sticky;top:70px;z-index:999;}
-nav a,.dropdown-btn {text-decoration:none;color:#ff0000;font-weight:bold;padding:5px 10px;cursor:pointer;transition:all 0.3s;}
-nav a:hover,.dropdown-btn:hover {color:#fff;}
-.dropdown {position:relative; display:inline-block;}
-.dropdown-content {display:none; position:absolute; background-color:#333; min-width:150px; z-index:1; border-radius:5px; overflow:hidden;}
-.dropdown-content a {display:block; padding:10px; color:#ff0000; text-decoration:none;}
-.dropdown-content a:hover {background:#555;color:#fff;}
-.container {width:90%;max-width:1000px;margin:auto;padding:20px;background:#f5f5f5;border-radius:15px;box-shadow:0 0 10px rgba(0,0,0,0.3);margin-bottom:20px;transition:0.5s;}
-.highlight {font-weight:bold;color:#ff0000;}
-.profile,.faq,.blog,.gallery,.comments-section,.admin-panel {border-radius:15px;padding:15px;margin-bottom:20px;}
-.profile {background:#000;color:#fff;text-align:center;}
-.contact {background:#ff0000;color:#fff;padding:15px;border-radius:10px;text-align:center;}
-.signup {margin:20px 0;padding:15px;background:#fff;border:2px solid #ff0000;border-radius:10px;}
-.signup input {padding:10px;margin:5px 0;width:100%;border-radius:5px;border:1px solid #ccc;}
-.signup button {padding:10px 20px;background:#ff0000;color:#fff;border:none;border-radius:5px;cursor:pointer;transition:0.3s;}
-.signup button:hover {background:#900;}
-.toggle-theme {position:fixed;top:20px;right:20px;padding:10px 15px;cursor:pointer;background:#000;color:#fff;border:none;border-radius:5px;}
-.dark-mode {background:#121212;color:#fff;}
-.dark-mode .container {background:#1e1e1e;}
-.dark-mode .contact {background:#900;}
-footer {background:#222;color:#ff0000;text-align:center;padding:20px;}
-.comment {border-bottom:1px solid #ccc;padding:10px 0;display:flex;justify-content:space-between;align-items:center;}
-.comment button {margin-left:5px; cursor:pointer;}
-.admin-panel h3 {margin-top:10px;}
-.gallery img {width:150px;margin:5px;border-radius:10px;cursor:pointer;transition:0.3s;}
-.gallery img:hover {transform:scale(1.1);}
-.lightbox {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;display:none;z-index:10000;}
-.lightbox img {max-width:90%;max-height:80%;border-radius:10px;}
-.blog-card {background:#ffefef;margin:10px;padding:10px;border-radius:10px;box-shadow:0 0 5px rgba(0,0,0,0.3);transition:transform 0.3s;}
-.blog-card:hover {transform:scale(1.05);}
-.blog-container {display:flex;overflow-x:auto;gap:10px;padding:10px;}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;scroll-behavior:smooth;}
+  body{background:#1b0b2e;color:#f2c6ff;line-height:1.6;transition:0.3s;}
+  ::selection{background:#ff3399;color:#fff;}
+  .copyable{user-select:text;background:rgba(255,255,255,0.1);padding:2px 4px;border-radius:3px;}
+  .btn{padding:8px 15px;background:#ff0066;color:#fff;border:none;border-radius:5px;cursor:pointer;margin:5px;}
+  .btn:hover{background:#ff3399;}
+  #backToTop{position:fixed;bottom:20px;right:20px;padding:10px;background:#ff0066;color:#fff;border:none;border-radius:50%;display:none;cursor:pointer;z-index:1000;}
+  #sidebar{position:fixed;top:0;left:-260px;width:260px;height:100%;background:#2a0b3c;color:#f2c6ff;transition:0.3s;padding:20px;overflow-y:auto;z-index:1000;}
+  #sidebar.active{left:0;}
+  #sidebar ul{list-style:none;}
+  #sidebar ul li{margin:15px 0;cursor:pointer;}
+  #sidebar ul li ul{margin-left:10px;display:none;}
+  #sidebar ul li.open>ul{display:block;}
+  #profile{display:flex;align-items:center;margin:20px 0;}
+  #profile img{width:50px;height:50px;border-radius:50%;margin-right:10px;transition:0.3s;}
+  #profile img:hover{transform:scale(1.2);}
+  #articles,#archive,#categories,#gallery,#humor,#comments,#chartContainer{margin:20px;}
+  .article,.archive-item,.category-item,.comment{border-bottom:1px solid #ff3399;padding:10px 0;opacity:0;transform:translateY(50px);transition:0.6s;}
+  .fade-in{opacity:0;transform:translateY(50px);transition:0.6s;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+  img{max-width:100%;border-radius:5px;margin:5px 0;}
+  .stars span{font-size:20px;cursor:pointer;color:#aaa;transition:0.3s;}
+  .stars span.active{color:gold;}
+  .parallax{background:url('https://picsum.photos/1200/400') no-repeat center center;background-size:cover;height:400px;position:relative;margin-bottom:20px;animation:moveBg 20s linear infinite;}
+  @keyframes moveBg{0%{background-position:0 0;}50%{background-position:100% 0;}100%{background-position:0 0;}}
+  .typing{border-right:2px solid #ff3399;display:inline-block;white-space:nowrap;overflow:hidden;}
+  #settingsPanel{position:fixed;top:80px;left:20px;background:rgba(0,0,0,0.8);color:#fff;padding:15px;border-radius:8px;z-index:2000;width:220px;}
+  #settingsPanel h4{margin-bottom:10px;}
+  #settingsPanel label{display:block;margin:5px 0;cursor:pointer;}
+  #settingsPanel select,#settingsPanel input[type=color]{width:100%;margin-bottom:10px;}
+  #notification{position:fixed;top:20px;right:20px;background:#ff0066;color:#fff;padding:10px 20px;border-radius:5px;display:none;z-index:2000;}
 </style>
 </head>
 <body>
 
-<button class="toggle-theme">حالت شب/روز</button>
+<!-- منوی کناری -->
+<div id="sidebar">
+  <ul>
+    <li onclick="this.classList.toggle('open')">منو کشویی
+      <ul>
+        <li>زیرمنو 1</li>
+        <li>زیرمنو 2</li>
+      </ul>
+    </li>
+    <li>خانه</li>
+    <li>مقالات</li>
+    <li>گالری</li>
+    <li>طنز</li>
+  </ul>
+</div>
 
-<header>Gg.. gg - حرفه‌ای</header>
+<!-- دکمه‌ها -->
+<button class="btn" onclick="toggleSidebar()">☰ منوی کناری</button>
+<button class="btn" onclick="toggleTheme()">تغییر حالت شب/روز</button>
 
-<nav id="nav-menu">
-    <a href="#home">خانه</a>
-    <div class="dropdown">
-        <span class="dropdown-btn">بخش‌ها ▼</span>
-        <div class="dropdown-content" id="dropdown-sections"></div>
+<!-- پارالاکس -->
+<div class="parallax"></div>
+
+<!-- پروفایل -->
+<div id="profile">
+  <img src="https://picsum.photos/50" alt="عکس پروفایل">
+  <div>
+    <div class="copyable">کاربر: علی</div>
+    <div>نشان‌ها: ⭐⭐⭐</div>
+  </div>
+</div>
+
+<!-- پنل تنظیمات -->
+<div id="settingsPanel">
+  <h4>تنظیمات سایت</h4>
+  <label>رنگ اصلی: <input type="color" id="mainColor" value="#ff0066"></label>
+  <label>رنگ متن: <input type="color" id="textColor" value="#f2c6ff"></label>
+  <label>فونت:
+    <select id="fontSelect">
+      <option value="'Segoe UI',sans-serif">Segoe UI</option>
+      <option value="'Tahoma',sans-serif">Tahoma</option>
+      <option value="'Vazirmatn',sans-serif">Vazirmatn</option>
+    </select>
+  </label>
+  <label><input type="checkbox" id="showGallery" checked> نمایش گالری</label>
+  <label><input type="checkbox" id="showHumor" checked> نمایش طنز</label>
+  <label><input type="checkbox" id="showArticles" checked> نمایش مقالات</label>
+  <button onclick="saveSettings()" class="btn">ذخیره تنظیمات</button>
+</div>
+
+<!-- مقالات -->
+<div id="articles">
+  <h3>مقالات</h3>
+  <div class="article fade-in copyable typing">مقاله 1: آموزش وب‌سایت مدرن</div>
+  <div class="article fade-in copyable typing">مقاله 2: نکات UI/UX</div>
+  <div class="article fade-in copyable typing">مقاله 3: راهنمای انیمیشن‌ها</div>
+</div>
+
+<!-- آرشیو و دسته‌بندی -->
+<div id="archive">
+  <h3>آرشیو مطالب</h3>
+  <div class="archive-item copyable">فروردین ۱۴۰۴</div>
+  <div class="archive-item copyable">اسفند ۱۴۰۳</div>
+</div>
+<div id="categories">
+  <h3>دسته‌بندی</h3>
+  <div class="category-item copyable">آموزش</div>
+  <div class="category-item copyable">طنز</div>
+  <div class="category-item copyable">گالری</div>
+</div>
+
+<!-- گالری -->
+<div id="gallery">
+  <img src="https://picsum.photos/200/150?1" loading="lazy">
+  <img src="https://picsum.photos/200/150?2" loading="lazy">
+  <img src="https://picsum.photos/200/150?3" loading="lazy">
+  <img src="https://picsum.photos/200/150?4" loading="lazy">
+</div>
+
+<!-- طنز -->
+<div id="humor">
+  <h3>طنز و میم روز</h3>
+  <div class="copyable">میم 1: وقتی سوکونا وارد کلاس می‌شود…</div>
+  <div class="copyable">میم 2: برنامه‌نویسی در شب!</div>
+</div>
+<!-- نظرات -->
+<div id="comments">
+  <h3>نظرات</h3>
+  <div class="comment fade-in">
+    <div class="copyable">این یک نظر تست است.</div>
+    <button onclick="like(this)">👍</button>
+    <button onclick="dislike(this)">👎</button>
+    <button onclick="reply(this)">پاسخ</button>
+    <div class="stars">
+      <span onclick="rate(this,1)">★</span>
+      <span onclick="rate(this,2)">★</span>
+      <span onclick="rate(this,3)">★</span>
+      <span onclick="rate(this,4)">★</span>
+      <span onclick="rate(this,5)">★</span>
     </div>
-    <a href="#admin">پنل مالک</a>
-</nav>
-
-<div class="container" id="home">
-    <div class="highlight">گامباره گامباره، بیشتر بیشتر تلاش کن! هر کاری به <strong>یک پشتکار</strong> نیاز دارد.</div>
-
-    <div class="signup">
-        <h3>عضویت در سایت</h3>
-        <input type="text" placeholder="نام کاربری" id="username">
-        <input type="email" placeholder="ایمیل" id="email">
-        <input type="password" placeholder="رمز عبور">
-        <button onclick="loginUser()">ثبت نام</button>
-        <p id="welcome-user"></p>
-    </div>
+  </div>
 </div>
 
-<div id="dynamic-sections"></div>
+<!-- دکمه بازگشت به بالا -->
+<button id="backToTop" onclick="scrollToTop()">↑</button>
 
-<!-- بخش نظرات -->
-<div class="container comments-section" id="comments-section">
-    <h2>نظرات کاربران</h2>
-    <input type="text" placeholder="نظر خود را بنویسید" id="user-comment">
-    <button onclick="addComment()">ثبت نظر</button>
-    <div id="comments-list"></div>
-</div>
+<!-- نوتیفیکیشن -->
+<div id="notification"></div>
 
-<!-- پنل مالک -->
-<div class="container admin-panel" id="admin">
-    <h2>پنل مالک سایت</h2>
-    <div id="user-list"></div>
-</div>
-
-<div class="container contact">
-    <h2>ارتباط با من</h2>
-    <p class="highlight">آیدی: Sukna277</p>
-</div>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox"><img src="" alt="Image"></div>
-
-<footer>© 2025 Gg.. gg | All rights reserved</footer>
-
+<!-- اسکریپت‌ها -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // حالت شب/روز خودکار
-    const hour = new Date().getHours();
-    if(hour >= 18 || hour < 6) document.body.classList.add('dark-mode');
-    document.querySelector('.toggle-theme').addEventListener('click',()=>document.body.classList.toggle('dark-mode'));
+  // منوی کناری
+  function toggleSidebar(){
+    document.getElementById('sidebar').classList.toggle('active');
+  }
 
-    // آرایه بخش‌ها
-    const sections = [
-        {title:"درباره من", content:"<strong>King of Dragons</strong>", class:"profile"},
-        {title:"بخش دوم", content:"این بخش <strong>نمونه</strong> است", class:"blog"},
-        {title:"FAQ", content:"سوالات متداول در اینجا قرار می‌گیرد", class:"faq"},
-        {title:"گالری", content:"<div class='gallery' id='gallery'></div>", class:"gallery"},
-        {title:"وبلاگ", content:"<div class='blog-container' id='blog-container'></div>", class:"blog"}
-    ];
+  // حالت شب/روز
+  function toggleTheme(){
+    document.body.classList.toggle('dark');
+    if(document.body.classList.contains('dark')){
+      document.body.style.background='#1b0b2e';
+      document.body.style.color='#f2c6ff';
+    }else{
+      document.body.style.background='#fff';
+      document.body.style.color='#000';
+    }
+  }
 
-    const dynamicContainer = document.getElementById('dynamic-sections');
-    const dropdownMenu = document.getElementById('dropdown-sections');
-    sections.forEach((s,idx)=>{
-        const id="section"+idx;
-        const a=document.createElement('a'); a.href="#"+id; a.innerHTML=s.title; dropdownMenu.appendChild(a);
-        const div=document.createElement('div'); div.className="container "+(s.class||""); div.id=id; div.innerHTML=`<h2>${s.title}</h2>${s.content}`;
-        dynamicContainer.appendChild(div);
+  // بازگشت به بالا
+  function scrollToTop(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // انیمیشن عناصر هنگام اسکرول
+  function animateElements(){
+    document.querySelectorAll('.fade-in').forEach(el=>{
+      let top = el.getBoundingClientRect().top;
+      if(top < window.innerHeight - 50){
+        el.classList.add('visible');
+      }
     });
+  }
 
-    // سیستم عضویت ساده
-    let users=[];
-    function loginUser(){
-        const user=document.getElementById('username').value;
-        const email=document.getElementById('email').value;
-        if(user && email){
-            users.push({name:user,email:email});
-            document.getElementById('welcome-user').innerText=`خوش آمدی ${user}!`;
-            updateAdminPanel();
-            document.getElementById('username').value=""; document.getElementById('email').value="";
-        }
+  window.onscroll = function(){
+    let btn = document.getElementById('backToTop');
+    if(window.scrollY > 200){
+      btn.style.display='block';
+    }else{
+      btn.style.display='none';
     }
-    function updateAdminPanel(){
-        const ul=document.getElementById('user-list');
-        ul.innerHTML="<h3>اعضای سایت:</h3>";
-        users.forEach((u,i)=>{
-            const p=document.createElement('p');
-            p.innerHTML=`${i+1}. ${u.name} - ${u.email} <button onclick="deleteUser(${i})">حذف</button>`;
-            ul.appendChild(p);
-        });
-    }
-    function deleteUser(idx){users.splice(idx,1); updateAdminPanel();}
+    animateElements();
+  }
 
-    // سیستم نظرات
-    let comments=[];
-    function addComment(){
-        const input=document.getElementById('user-comment'); const text=input.value.trim();
-        if(!text) return;
-        const comment={id:Date.now(), text:text, likes:0, dislikes:0};
-        comments.push(comment); input.value="";
-        renderComments(); botReply(comment.id);
+  // نظرات و لایک/دیسلایک
+  function like(btn){showNotification('👍 لایک شد!');}
+  function dislike(btn){showNotification('👎 دیسلایک شد!');}
+  function reply(btn){
+    let commentText=prompt('پاسخ خود را وارد کنید:');
+    if(commentText){
+      let replyDiv=document.createElement('div');
+      replyDiv.style.marginLeft='20px';
+      replyDiv.style.color='#ffccff';
+      replyDiv.textContent='پاسخ: '+commentText;
+      btn.parentElement.appendChild(replyDiv);
     }
-    function renderComments(){
-        const container=document.getElementById('comments-list'); container.innerHTML="";
-        comments.forEach(c=>{
-            const div=document.createElement('div'); div.className="comment";
-            div.innerHTML=`<span>${c.text}</span>
-                <span>
-                    👍 <button onclick="likeComment(${c.id})">${c.likes}</button>
-                    👎 <button onclick="dislikeComment(${c.id})">${c.dislikes}</button>
-                    🗑️ <button onclick="deleteComment(${c.id})">حذف</button>
-                </span>`;
-            container.appendChild(div);
-        });
-    }
-    function likeComment(id){comments.find(c=>c.id===id).likes++; renderComments();}
-    function dislikeComment(id){comments.find(c=>c.id===id).dislikes++; renderComments();}
-    function deleteComment(id){comments=comments.filter(c=>c.id!==id); renderComments();}
-    function botReply(commentId){setTimeout(()=>{comments.push({id:Date.now(), text:"ربات پاسخ داد: ممنون از نظر شما!", likes:0, dislikes:0}); renderComments();},1000);}
+  }
 
-    // گالری تصاویر با Lightbox
-    const galleryImages=[
-        "https://via.placeholder.com/300x200/ff0000/fff?text=1",
-        "https://via.placeholder.com/300x200/000000/fff?text=2",
-        "https://via.placeholder.com/300x200/ff5555/fff?text=3",
-        "https://via.placeholder.com/300x200/900/fff?text=4"
-    ];
-    const galleryDiv=document.getElementById('gallery');
-    const lightbox=document.getElementById('lightbox');
-    const lightboxImg=lightbox.querySelector('img');
-    galleryImages.forEach(src=>{
-        const img=document.createElement('img'); img.src=src;
-        img.onclick=()=>{lightbox.style.display='flex'; lightboxImg.src=src;}
-        galleryDiv.appendChild(img);
+  function rate(star, value){
+    let stars=star.parentElement.querySelectorAll('span');
+    stars.forEach((s,i)=>{
+      if(i<value){s.classList.add('active');}else{s.classList.remove('active');}
     });
-    lightbox.onclick=()=>{lightbox.style.display='none';}
+    showNotification('امتیاز داده شد: '+value+' ستاره');
+  }
 
-    // وبلاگ نمونه با اسکرول افقی
-    const blogContainer=document.getElementById('blog-container');
-    const blogs=[
-        {title:"خبر اول", text:"متن کوتاه خبر اول"},
-        {title:"خبر دوم", text:"متن کوتاه خبر دوم"},
-        {title:"خبر سوم", text:"متن کوتاه خبر سوم"},
-        {title:"خبر چهارم", text:"متن کوتاه خبر چهارم"}
-    ];
-    blogs.forEach(b=>{
-        const card=document.createElement('div'); card.className='blog-card';
-        card.innerHTML=`<h4>${b.title}</h4><p>${b.text}</p>`;
-        blogContainer.appendChild(card);
+  // نوتیفیکیشن
+  function showNotification(text){
+    let note=document.getElementById('notification');
+    note.textContent=text;
+    note.style.display='block';
+    setTimeout(()=>{note.style.display='none';},2000);
+  }
+
+  // ذخیره تنظیمات
+  function saveSettings(){
+    let mainColor=document.getElementById('mainColor').value;
+    let textColor=document.getElementById('textColor').value;
+    let font=document.getElementById('fontSelect').value;
+    document.body.style.color=textColor;
+    document.querySelectorAll('.btn').forEach(b=>b.style.background=mainColor);
+    document.body.style.fontFamily=font;
+
+    document.getElementById('gallery').style.display=document.getElementById('showGallery').checked?'block':'none';
+    document.getElementById('humor').style.display=document.getElementById('showHumor').checked?'block':'none';
+    document.getElementById('articles').style.display=document.getElementById('showArticles').checked?'block':'none';
+
+    showNotification('تنظیمات ذخیره شد!');
+  }
+
+  // تایپ ماشینی ساده
+  function typeEffect(){
+    const elements=document.querySelectorAll('.typing');
+    elements.forEach(el=>{
+      let text=el.textContent;
+      el.textContent='';
+      let i=0;
+      let interval=setInterval(()=>{
+        el.textContent+=text.charAt(i);
+        i++;
+        if(i>=text.length) clearInterval(interval);
+      },50);
     });
+  }
+
+  window.onload=function(){
+    animateElements();
+    typeEffect();
+    showNotification('وب‌سایت سوکونا آماده است!');
+  }
 </script>
-
 </body>
     </html>
